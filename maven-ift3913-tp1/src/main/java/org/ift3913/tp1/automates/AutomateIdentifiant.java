@@ -1,7 +1,7 @@
 package org.ift3913.tp1.automates;
 
 /**
- * Enum interne de l'{@linkplain AutomateIdentifiant}. Ne pas directement référencier.
+ * Enum interne de l'{@linkplain AutomateIdentifiant}. Ne pas directement référencer.
  * @author Pierre Janier Dubry et Rui Jie Liu
  */
 enum AutomateIdentifiantInterne implements AutomateTransition {
@@ -19,7 +19,7 @@ enum AutomateIdentifiantInterne implements AutomateTransition {
     },
 
     /**
-     * Valeur: tout caractère de début d'identifiant
+     * Valeur : tout caractère de début d'identifiant
      * <br>
      * Début d'un identifiant Java.
      */
@@ -31,7 +31,7 @@ enum AutomateIdentifiantInterne implements AutomateTransition {
     },
 
     /**
-     * Valeur: tout caractère d'identifiant
+     * Valeur : tout caractère d'identifiant
      * <br>
      * Un identifiant Java.
      */
@@ -43,7 +43,7 @@ enum AutomateIdentifiantInterne implements AutomateTransition {
     },
 
     /**
-     * Valeur: tout caractère identifiant Java
+     * Valeur : tout caractère identifiant Java
      * <br>
      * Pas un identifiant valide.
      */
@@ -67,7 +67,7 @@ enum AutomateIdentifiantInterne implements AutomateTransition {
  * Note que cet automate ne prend pas en compte de la validité de l'identifiant trouvé
  * (e.g. s'il fait partie d'un string)
  * Pour assurer la validité, il faut combiner le résultat des automates d'analyse de
- * commentaires et de litéraux de strings.
+ * commentaires et de littéraux de strings.
  *
  * @see <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html">Java Documentation - Lexical Structure</a>
  * @author Pierre Janier Dubry et Rui Jie Liu
@@ -87,8 +87,10 @@ public class AutomateIdentifiant {
      * @return l'identifiant trouvé, ou {@code null} si aucun identifiant n'a été trouvé encore.
      */
     public String prochainCaractere(char prochainChar) {
+
         ResultatTransitionAutomate resultat = etatActuel.prochainEtat(prochainChar);
         identifiant.append(prochainChar);
+
         if (resultat.valide()) {
             String identifiantValide = identifiant.toString();
             // Réinitialiser le StringBuilder de l'identifiant

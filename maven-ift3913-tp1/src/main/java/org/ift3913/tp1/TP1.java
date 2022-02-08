@@ -1,14 +1,13 @@
 package org.ift3913.tp1;
 
-import org.ift3913.tp1.automates.AutomateCommentaires;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
 /**
- * Programme d'analyse statistique pour mesurer la complexité de la sous-documentation d'un projet Java.
+ * Programme d'analyse statistique pour mesurer la complexité de la sous-documentation d'un projet
+ * Java.
  *
  * @author Pierre Janier Dubry et Rui Jie Liu
  */
@@ -17,16 +16,15 @@ public class TP1 {
     //region ================================ MAIN ================================
 
     public static void main(String[] args) {
-        // Point d'entrée du programme
 
         // Analyse et traitement des arguments en entrée
         File cheminBase = null;
 
+        // TODO retirer la boucle for et récupérer uniquement le premier argument
         for (String arg : args) {
             // Vérification de la validité du chemin donné. Aucune analyse du type de fichier ici.
             // Il n'est pas nécessaire de vérifier qu'il s'agisse bien du dossier racine.
-            // TODO le premier argument est le fichier ou le dossier à analyser et le second est la sortie
-            // si il y a un seul argument alors la sortie par défaut est le même que celui du premier argument
+            // S'il y a un seul argument alors la sortie par défaut est le même que celui du premier argument
             File potentialPath = new File(arg);
             if (potentialPath.exists()) {
                 cheminBase = potentialPath;
@@ -42,10 +40,10 @@ public class TP1 {
         // Lancer la partie logique du programme
 
         if (cheminBase.isDirectory()) {
-            // Analyse paquet : parcours recursif du contenue du dossier
+            // Analyse paquet : parcours du contenu du dossier
             Collection<ResultatAnalysePaquet> resultats = analyserPaquet(cheminBase);
 
-            // on créer le fichier csv à partir des resultats analyser et on créer le fichier de sortie
+            // on crée le fichier csv à partir des résultats analysés et on crée le fichier de sortie
             String cheminFichierCsvClasses = dossierActuel + File.separator + NOM_CSVCLASSES;
             String cheminFichierCsvPaquets = dossierActuel + File.separator + NOM_CSVPAQUETS;
             creerCsvClasses(resultats, new File(cheminFichierCsvClasses));
@@ -115,8 +113,8 @@ public class TP1 {
      * @param dossierPaquet le fichier du dossier.
      */
     static Collection<ResultatAnalysePaquet> analyserPaquet(File dossierPaquet) {
-        // Conversion des extensions supportées en un ensemble permettant de dédupliquer
-        // les éléments, de convertir tout en minuscule, et de faire appel à la méthode contains()
+        // Conversion des extensions supportées en un ensemble permettant d'éviter les éléments en
+        // double, de convertir tout en minuscule, et de faire appel à la méthode contains()
         Set<String> ExtensionsSupportees = new HashSet<>(Arrays.stream(EXTENSIONS_FICHIERS)
                 .map(String::toLowerCase).toList());
 
@@ -126,9 +124,12 @@ public class TP1 {
 
         // peupler la collection resultatsTries en analysant chaque fichier de code
         try {
-            /* Utiliser la méthode du stream Java pour traverser tous les fichiers .java à partir du dossier racine
-               Dans un premier temps, on traverse l'architecture, puis on filtre les fichiers et enfin on l'analyse.
-               Après l'analyse, on sauvegarde les résultats dans la collection resulats.*/
+            /*
+            Utiliser la méthode du stream Java pour traverser tous les fichiers .java à partir
+            du dossier racine. Dans un premier temps, on traverse l'architecture, puis on filtre
+            les fichiers et enfin on l'analyse. Après l'analyse, on sauvegarde les résultats dans
+            la collection resulats.
+            */
             Files.walk(dossierPaquet.toPath())
                     .filter(cheminFichier -> ExtensionsSupportees.contains(Utils.obtenirExtensionFichier(cheminFichier)))
                     .forEach(cheminFichier -> {
@@ -141,7 +142,8 @@ public class TP1 {
                         }
 
                         ResultatAnalyseFichier resultatAnalyseFichier = analyserFichier(cheminFichier.toFile());
-                        if (resultatAnalyseFichier != null) resultatsTries.get(nomPaquet).add(resultatAnalyseFichier);
+                        if (resultatAnalyseFichier != null)
+                            resultatsTries.get(nomPaquet).add(resultatAnalyseFichier);
                     });
 
         } catch (IOException e) {
@@ -166,7 +168,7 @@ public class TP1 {
      * Prend les résultats d'une analyse de paquets et extrait les informations pertinentes
      * aux statistiques de classes dans un fichier CSV de chemin spécifié.
      *
-     * @param resultat le résultat d'une analyse d'un seul fichier
+     * @param resultat   le résultat d'une analyse d'un seul fichier
      * @param fichierCsv le chemin complet, incluant le nom du fichier CSV, à générer
      */
     static void creerCsvClasses(ResultatAnalyseFichier resultat, Path fichierCsv) {
@@ -187,7 +189,7 @@ public class TP1 {
      * Prend les résultats d'une analyse de paquets et extrait les informations pertinentes
      * aux statistiques de classes dans un fichier CSV de chemin spécifié.
      *
-     * @param resultats le résultat d'une analyse d'un paquet
+     * @param resultats  le résultat d'une analyse d'un paquet
      * @param fichierCsv le chemin complet, incluant le nom du fichier CSV, à générer
      */
     static void creerCsvClasses(Collection<ResultatAnalysePaquet> resultats, File fichierCsv) {

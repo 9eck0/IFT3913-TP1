@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fe289f6-7138-4aa7-804f-982b80911623" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" afterDir="false" />
-    </list>
-    <list id="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" name="Changes by beaul" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" afterDir="false" />
-    </list>
-    <list id="40e4043f-8ebd-4e45-9443-b852f9d0085d" name="Changes by RJ" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateCommentaires.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateCommentaires.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateIdentifiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateIdentifiant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateStrings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTernaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTernaire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTransition.java" afterDir="false" />
     </list>
+    <list id="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" name="Changes by beaul" comment="" />
+    <list id="40e4043f-8ebd-4e45-9443-b852f9d0085d" name="Changes by RJ" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,19 +36,12 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java">
-      <ranges>
-        <range start1="26" end1="26" start2="26" end2="28" changelist="8fe289f6-7138-4aa7-804f-982b80911623" />
-        <range start1="30" end1="30" start2="32" end2="33" changelist="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" />
-        <range start1="107" end1="108" start2="110" end2="112" changelist="40e4043f-8ebd-4e45-9443-b852f9d0085d" />
-        <range start1="116" end1="117" start2="120" end2="134" changelist="8fe289f6-7138-4aa7-804f-982b80911623" />
-        <range start1="137" end1="137" start2="154" end2="156" changelist="40e4043f-8ebd-4e45-9443-b852f9d0085d" />
-        <range start1="156" end1="156" start2="175" end2="176" changelist="40e4043f-8ebd-4e45-9443-b852f9d0085d" />
-        <range start1="158" end1="158" start2="178" end2="179" changelist="40e4043f-8ebd-4e45-9443-b852f9d0085d" />
-        <range start1="161" end1="161" start2="182" end2="183" changelist="8fe289f6-7138-4aa7-804f-982b80911623" />
-      </ranges>
-    </file>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/ift3913/tp1/Utils.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -64,9 +62,10 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -89,5 +88,32 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="maven-ift3913-tp1" type="b2602c69:ProjectViewProjectNode" />
+        <item name="maven-ift3913-tp1" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="maven-ift3913-tp1" type="b2602c69:ProjectViewProjectNode" />
+        <item name="maven-ift3913-tp1" type="462c0819:PsiDirectoryNode" />
+        <item name="src" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="maven-ift3913-tp1" type="b2602c69:ProjectViewProjectNode" />
+        <item name="maven-ift3913-tp1" type="462c0819:PsiDirectoryNode" />
+        <item name="src" type="462c0819:PsiDirectoryNode" />
+        <item name="main" type="462c0819:PsiDirectoryNode" />
+      </path>
+      <path>
+        <item name="maven-ift3913-tp1" type="b2602c69:ProjectViewProjectNode" />
+        <item name="maven-ift3913-tp1" type="462c0819:PsiDirectoryNode" />
+        <item name="src" type="462c0819:PsiDirectoryNode" />
+        <item name="main" type="462c0819:PsiDirectoryNode" />
+        <item name="java" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
   </component>
 </project>

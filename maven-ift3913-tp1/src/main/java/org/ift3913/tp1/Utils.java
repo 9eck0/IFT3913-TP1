@@ -1,11 +1,9 @@
 package org.ift3913.tp1;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * Une classe contenant des fonctions utilitaires statiques, communes à plusieurs classes.
@@ -78,8 +76,8 @@ public class Utils {
      *     </li>
      * </ul>
      *
-     * @param racine le chemin du paquet de base
-     * @param objectif     le chemin du fichier/dossier spécifié
+     * @param racine   le chemin du paquet de base
+     * @param objectif le chemin du fichier/dossier spécifié
      * @return le nom complet du paquet, basé sur le chemin relatif
      */
     public static String obtenirNomPaquet(Path racine, Path objectif) {

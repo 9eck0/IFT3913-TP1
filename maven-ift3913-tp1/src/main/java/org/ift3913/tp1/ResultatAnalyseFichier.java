@@ -7,7 +7,8 @@ import java.nio.file.Path;
  *
  * @author Pierre Janier Dubry et Rui Jie Liu
  */
-public record ResultatAnalyseFichier(String nomClasse, int lignesDeCode, int lignesCommentaires, Path cheminFichier) {
+public record ResultatAnalyseFichier(String nomClasse, int lignesDeCode, int lignesCommentaires,
+                                     Path cheminFichier) {
     public double densiteCommentaires() {
         return (double) lignesCommentaires / (double) lignesDeCode;
     }

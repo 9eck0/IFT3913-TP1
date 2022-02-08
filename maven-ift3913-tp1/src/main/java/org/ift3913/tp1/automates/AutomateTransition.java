@@ -1,7 +1,7 @@
 package org.ift3913.tp1.automates;
 
 /**
- * Représente un automate style Meely pour l'analyse du code Java.
+ * Représente un automate style Mealy pour l'analyse du code Java.
  * <br>
  * L'automate fonctionne en analysant caractère-par-caractère l'entièreté du code.
  * Un {@link java.io.BufferedReader} est recommandé pour la lecture.

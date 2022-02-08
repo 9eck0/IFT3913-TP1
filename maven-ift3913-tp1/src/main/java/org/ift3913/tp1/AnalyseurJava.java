@@ -35,14 +35,15 @@ public class AnalyseurJava {
     private AutomateTransition etatAutomateTernaire;
     private AutomateIdentifiant automateIdentifiant;
     private final Set<String> identifiantsStructuresDeControle = new HashSet<>(
-            Arrays.asList("if", "else", "while", "for", "switch"));
+            Arrays.asList("if", "else", "then", "while", "for", "switch"));
 
     //endregion CHAMPS
 
     //region ================================ CONSTRUCTEUR ================================
 
     public AnalyseurJava(File fichier) throws FileNotFoundException {
-        if (!fichier.exists()) throw new FileNotFoundException("Le chemin fourni ne correspond pas à un fichier valide!");
+        if (!fichier.exists())
+            throw new FileNotFoundException("Le chemin fourni ne correspond pas à un fichier valide!");
         this.fichier = fichier;
 
     }
@@ -69,13 +70,14 @@ public class AnalyseurJava {
             fileStream = new BufferedReader(new FileReader(fichier));
 
             String currentLine;
+            // lecture du contenu du fichier
             while ((currentLine = fileStream.readLine()) != null) {
                 currentLine = currentLine.strip();
                 // Si la ligne est vide (e.g. seulement des espaces blancs), on ne va pas la compter
                 if (currentLine.equals("")) continue;
 
-                // Un loquet (latch) pour verrouiller l'incrémentation de la statistique lignesCommentaires
-                // lorsqu'on est toujours sur la même ligne
+                // Un loquet (latch) pour verrouiller l'incrémentation de la statistique
+                // lignesCommentaires lorsqu'on est toujours sur la même ligne
                 boolean isSameLine = false;
 
                 // traiter la ligne caractère-par-caractère à l'intérieur de l'automate
@@ -90,11 +92,16 @@ public class AnalyseurJava {
                         lignesCommentaires++;
                         isSameLine = true;
                     }
+
+                    // TODO ici il faut rouler en parallèle le détecteur de prédicats
+                    // ce dispositif va aussi demander l'état de l'automate des commentaires
+                    // pour s'assurer que le prédicat est soit un commentaire soit du code
+                    // syntaxiquement valide
                 }
 
                 // Une fois le traitement caractère-par-caractère pour la ligne est finie,
                 // soumettre manuellement le caractère de retour de ligne à l'automate
-                // Ce caractère est simplement un signal à l'automate qu'une fin de ligne est atteinnte
+                // Ce caractère est simplement un signal à l'automate qu'une fin de ligne est atteinte
                 // et indépendant de la plateforme sur lequel le programme est exécuté.
                 etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat('\n');
 
@@ -107,12 +114,14 @@ public class AnalyseurJava {
             e.printStackTrace();
         }
 
+        // fermeture du BufferedReader
         try {
             if (fileStream != null) fileStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        // on récupère les chemins et on termine
         String extensionFichier = "." + Utils.obtenirExtensionFichier(fichier.toPath());
         String nomClasse = fichier.getName().replace(extensionFichier, "");
         return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath());

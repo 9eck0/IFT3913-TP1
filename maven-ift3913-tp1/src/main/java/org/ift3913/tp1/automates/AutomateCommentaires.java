@@ -4,19 +4,19 @@ package org.ift3913.tp1.automates;
  * Cette Enum définit le comportement d'un automate fini servant à analyser caractère-par-caractère
  * les commentaires dans du code Java.
  * <br><br>
- * Java supporte trois types de commentaires:
+ * Java supporte trois types de commentaires :
  * <ul>
  *     <li>Monoligne: <b>&#47&#47</b>...</li>
- *     <li>Bloc multilignes: <b>&#47*</b>...<b>*&#47</b></li>
+ *     <li>Bloc multi-lignes : <b>&#47*</b>...<b>*&#47</b></li>
  *     <li>Javadoc: <b>&#47**</b>...<b>*&#47</b></li>
  * </ul>
  * Il est à noter que ces trois types de commentaires n'entrent pas en conflict entre eux,
  * sauf pour la clause fermante des commentaires multilignes et Javadocs (<b>*&#47</b>),
- * qui ferme tous les deux types de commentaires multilignes déjà ouvertes.
+ * qui ferme tous les deux types de commentaires multilignes déjà ouverte.
  * <br><br>
  * Le moyen de détection des commentaires dans les fichiers de code se font à l'aide
  * d'un automate à états finis. Cet automate recense trois modes différents,
- * permettant de détecter la présence des trois types de commentaires Java:
+ * permettant de détecter la présence des trois types de commentaires Java :
  * <ul>
  *     <li>Monoligne: si <b>&#47&#47</b> détecté, transitionner vers un état séparé
  *     qui attend un retour de ligne ("\n").</li>
@@ -25,7 +25,7 @@ package org.ift3913.tp1.automates;
  *     <li>Javadocs: si <b>&#47**</b> détecté, transitionner vers un état séparé
  *     qui attend la clause de fermeture (<b>*&#47</b>). Fermer tous les commentaires multilignes et Javadocs ouverts.</li>
  * </ul>
- *
+ * <p>
  * L'implémentation concrète est effectuée en groupant les blocs multilignes et les Javadocs
  * en un seul mode, pour réduire la complexité tout en restant à l'intérieur de la
  * portée de ce projet.
@@ -39,7 +39,7 @@ package org.ift3913.tp1.automates;
 public enum AutomateCommentaires implements AutomateEtat {
 
     /**
-     * Valeur: tout caractère
+     * Valeur : tout caractère
      * <br>
      * État initial, aucun commentaire.
      */
@@ -96,7 +96,7 @@ public enum AutomateCommentaires implements AutomateEtat {
                 return Initial;
             } else if (prochainChar == '/') {
                 return DebutMonoligneEtBloc;
-            }  else {
+            } else {
                 return Monoligne;
             }
         }

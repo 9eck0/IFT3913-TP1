@@ -10,7 +10,7 @@ package org.ift3913.tp1.automates;
  */
 public enum AutomateTernaire implements AutomateTransition {
     /**
-     * Valeur: tout caractère
+     * Valeur : tout caractère
      * <br>
      * État initial, aucun opérateur ternaire.
      */

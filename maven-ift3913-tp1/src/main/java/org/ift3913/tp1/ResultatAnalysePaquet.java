@@ -1,7 +1,6 @@
 package org.ift3913.tp1;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Données obtenues après une analyse de commentaires auprès d'un seul paquet (dossier)
@@ -12,10 +11,12 @@ import java.util.Iterator;
  * @param resultatsFichiers un dictionnaire couplant les noms des paquets et
  * @author Pierre Janier Dubry et Rui Jie Liu
  */
-public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultatsFichiers, String nomPaquet, String chemin) {
+public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultatsFichiers,
+                                    String nomPaquet, String chemin) {
 
     /**
      * Obtenir la statistique de lignes de code totales à travers tous les fichiers du paquet.
+     *
      * @return le nombre de lignes de code en total
      */
     public int ligneCodesPaquet() {
@@ -24,6 +25,7 @@ public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultats
 
     /**
      * Obtenir la statistique de lignes de commentaires totales à travers tous les fichiers du paquet.
+     *
      * @return le nombre de lignes de code en total
      */
     public int lignesCommentairesPaquet() {
