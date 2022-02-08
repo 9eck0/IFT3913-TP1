@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fe289f6-7138-4aa7-804f-982b80911623" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateCommentaires.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateCommentaires.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateIdentifiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateIdentifiant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateStrings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTernaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTernaire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/automates/AutomateTransition.java" afterDir="false" />
     </list>
     <list id="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" name="Changes by beaul" comment="" />
     <list id="40e4043f-8ebd-4e45-9443-b852f9d0085d" name="Changes by RJ" comment="" />
@@ -24,6 +15,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />

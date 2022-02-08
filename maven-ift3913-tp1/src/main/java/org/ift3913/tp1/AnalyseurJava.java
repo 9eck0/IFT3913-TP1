@@ -3,9 +3,7 @@ package org.ift3913.tp1;
 import org.ift3913.tp1.automates.*;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Un analyseur de codes Java pour un seul fichier de code.
@@ -31,11 +29,14 @@ public class AnalyseurJava {
     private BufferedReader fileStream;
 
     private AutomateEtat etatAutomateCommentaires;
-    private AutomateEtat etatAutomateStrings;
-    private AutomateTransition etatAutomateTernaire;
-    private AutomateIdentifiant automateIdentifiant;
+    //    private AutomateEtat etatAutomateStrings;
+//    private AutomateTransition etatAutomateTernaire;
+//    private AutomateIdentifiant automateIdentifiant;
     private final Set<String> identifiantsStructuresDeControle = new HashSet<>(
             Arrays.asList("if", "else", "then", "while", "for", "switch"));
+    // on sauvegarde les mots et leurs occurrences dans un hashmap qu'on videra pour compter
+    // le nombre total de prédicat à la fin après l'analyse totale du fichier
+    Map<String, Integer> occurenceIdentifiant = new HashMap<>();
 
     //endregion CHAMPS
 
@@ -46,6 +47,11 @@ public class AnalyseurJava {
             throw new FileNotFoundException("Le chemin fourni ne correspond pas à un fichier valide!");
         this.fichier = fichier;
 
+        // on initialise la hashmap avec une valeur de base de 0 pour pouvoir compter
+        for (String id : identifiantsStructuresDeControle) {
+            occurenceIdentifiant.put(id, 0);
+        }
+
     }
 
     //endregion CONSTRUCTEUR
@@ -54,9 +60,14 @@ public class AnalyseurJava {
 
     private void initialiser() {
         this.etatAutomateCommentaires = AutomateCommentaires.Initial;
-        this.etatAutomateStrings = AutomateStrings.Initial;
-        this.etatAutomateTernaire = AutomateTernaire.Initial;
-        this.automateIdentifiant = new AutomateIdentifiant();
+//        this.etatAutomateStrings = AutomateStrings.Initial;
+//        this.etatAutomateTernaire = AutomateTernaire.Initial;
+//        this.automateIdentifiant = new AutomateIdentifiant();
+
+        // on remet les compteurs à zero pour compter la ligne suivante
+        for (String id : identifiantsStructuresDeControle) {
+            occurenceIdentifiant.put(id, 0);
+        }
     }
 
     public ResultatAnalyseFichier analyser() throws FileNotFoundException {
@@ -65,19 +76,22 @@ public class AnalyseurJava {
         // Statistiques à analyser
         int lignesDeCode = 1;
         int lignesCommentaires = 0;
+        int nbPredicats = 0; // pour la complexité cyclomatique de McCabe
 
         try {
             fileStream = new BufferedReader(new FileReader(fichier));
 
             String currentLine;
+
             // lecture du contenu du fichier
             while ((currentLine = fileStream.readLine()) != null) {
-                currentLine = currentLine.strip();
+
+                currentLine = currentLine.toLowerCase().strip();
                 // Si la ligne est vide (e.g. seulement des espaces blancs), on ne va pas la compter
                 if (currentLine.equals("")) continue;
 
-                // Un loquet (latch) pour verrouiller l'incrémentation de la statistique
-                // lignesCommentaires lorsqu'on est toujours sur la même ligne
+                // Un verrou pour empêcher l'incrémentation de la lignesCommentaires
+                // lorsqu'on est toujours sur la même ligne
                 boolean isSameLine = false;
 
                 // traiter la ligne caractère-par-caractère à l'intérieur de l'automate
@@ -93,11 +107,20 @@ public class AnalyseurJava {
                         isSameLine = true;
                     }
 
-                    // TODO ici il faut rouler en parallèle le détecteur de prédicats
-                    // ce dispositif va aussi demander l'état de l'automate des commentaires
-                    // pour s'assurer que le prédicat est soit un commentaire soit du code
-                    // syntaxiquement valide
+                    // on commence par analyser les identifiants spéciaux dans la phrase
+                    // si on trouve un mot spécial dans la phrase et qu'on n'est pas dans un commentaire
+                    // alors on ajoute son occurrence dans le hashmap et on incrémente son nombre
+                    for (String identifiant : identifiantsStructuresDeControle) {
+                        // TODO l'id peut être présent plus d'une fois dans la ligne mais n'est compter qu'une seule fois avec contains(id)
+                        if (currentLine.contains(identifiant) && !etatAutomateCommentaires.valide()) {
+                            int nbMot = occurenceIdentifiant.get(identifiant);
+                            occurenceIdentifiant.put(identifiant, nbMot + 1);
+                        }
+                    }
                 }
+
+                // récupère la somme des valeurs de toutes les clés.
+                nbPredicats += getSumValue(occurenceIdentifiant);
 
                 // Une fois le traitement caractère-par-caractère pour la ligne est finie,
                 // soumettre manuellement le caractère de retour de ligne à l'automate
@@ -124,7 +147,15 @@ public class AnalyseurJava {
         // on récupère les chemins et on termine
         String extensionFichier = "." + Utils.obtenirExtensionFichier(fichier.toPath());
         String nomClasse = fichier.getName().replace(extensionFichier, "");
-        return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath());
+        return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath(), nbPredicats);
+    }
+
+    private int getSumValue(Map<String, Integer> map) {
+        int n = 0;
+        for (String id : map.keySet()) {
+            n += map.get(id);
+        }
+        return n;
     }
 
     //endregion MÉTHODES
