@@ -9,6 +9,7 @@ import java.nio.file.Path;
  */
 public record ResultatAnalyseFichier(String nomClasse, int lignesDeCode, int lignesCommentaires,
                                      Path cheminFichier, int complexiteCyclomatique) {
+
     public double densiteCommentaires() {
         return (double) lignesCommentaires / (double) lignesDeCode;
     }
