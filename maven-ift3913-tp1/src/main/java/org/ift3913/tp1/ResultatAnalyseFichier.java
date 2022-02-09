@@ -8,12 +8,14 @@ import java.nio.file.Path;
  * @author Pierre Janier Dubry et Rui Jie Liu
  */
 public record ResultatAnalyseFichier(String nomClasse, int lignesDeCode, int lignesCommentaires,
-                                     Path cheminFichier, int nbPredicat) {
+                                     Path cheminFichier, int complexiteCyclomatique) {
     public double densiteCommentaires() {
         return (double) lignesCommentaires / (double) lignesDeCode;
     }
 
     public String toString() {
-        return "%s,%s,%s,%s,%s".formatted(cheminFichier(), nomClasse, lignesDeCode, lignesCommentaires, densiteCommentaires());
+        return "%s,%s,%s,%s,%s,%s".formatted(cheminFichier(), nomClasse,
+                lignesDeCode, lignesCommentaires, densiteCommentaires(), complexiteCyclomatique);
     }
+
 }

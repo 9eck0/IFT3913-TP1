@@ -63,6 +63,8 @@ public class TP1 {
             creerCsvClasses(resultat, Path.of(cheminFichierCsv));
         }
 
+        System.out.println("fin");
+
     }
 
     //endregion MAIN
@@ -88,8 +90,8 @@ public class TP1 {
      */
     static final String NOM_CSVPAQUETS = "paquets.csv";
     // En-têtes des fichiers CSV
-    static final String ENTETE_CSVCLASSES = "chemin,class,classe_LOC,classe_CLOC,classe_DC";
-    static final String ENTETE_CSVPAQUETS = "chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC";
+    static final String ENTETE_CSVCLASSES = "chemin,class,classe_LOC,classe_CLOC,classe_DC,complexiteCyclomatiqueClasse";
+    static final String ENTETE_CSVPAQUETS = "chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,complexiteCyclomatiquePaquet";
 
     //endregion CHAMPS
 
@@ -135,6 +137,7 @@ public class TP1 {
                     .forEach(cheminFichier -> {
                         // Pour chaque fichier à analyser, on veut le stocker dans le dictionnaire/hashtable sous le paquet correspondant
                         String nomPaquet = Utils.obtenirNomPaquet(dossierPaquet.toPath(), cheminFichier);
+
                         // Vérifier si le dictionnaire/hashtable contient le nom du paquet comme entrée
                         if (!resultatsTries.containsKey(nomPaquet)) {
                             // si non, initialiser une liste pour contenir les résultats d'analyse des classes du paquet
@@ -201,9 +204,8 @@ public class TP1 {
 
             // Écriture des lignes de statistiques de classes
             for (ResultatAnalysePaquet paquet : resultats) {
-                // Pour chaque paquet:
                 for (ResultatAnalyseFichier resultatFichier : paquet.resultatsFichiers()) {
-                    // Pour chaque classe à l'intérieur du paquet:
+                    // Pour chaque classe à l'intérieur du paquet :
                     csvWriter.newLine();
                     csvWriter.write(resultatFichier.toString());
                 }
@@ -225,8 +227,9 @@ public class TP1 {
             // Écriture des lignes de statistiques de classes
             for (ResultatAnalysePaquet paquet : resultats) {
                 csvWriter.newLine();
-                csvWriter.write("%s,%s,%s,%s,%s".formatted(paquet.chemin(), paquet.nomPaquet(),
-                        paquet.ligneCodesPaquet(), paquet.lignesCommentairesPaquet(), paquet.DensiteCommentaires()));
+                csvWriter.write("%s,%s,%s,%s,%s,%s".formatted(paquet.chemin(), paquet.nomPaquet(),
+                        paquet.ligneCodesPaquet(), paquet.lignesCommentairesPaquet(),
+                        paquet.densiteCommentaires(), paquet.complexiteCyclomatiquePaquet()));
             }
 
             csvWriter.close();

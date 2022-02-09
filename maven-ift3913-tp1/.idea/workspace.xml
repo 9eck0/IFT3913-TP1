@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" afterDir="false" />
     </list>
     <list id="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" name="Changes by beaul" comment="" />
     <list id="40e4043f-8ebd-4e45-9443-b852f9d0085d" name="Changes by RJ" comment="" />
@@ -58,12 +60,44 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RunManager" selected="Application.model paquet">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.ift3913.tp1.TP1" />
+      <module name="maven-ift3913-tp1" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="model paquet" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="org.ift3913.tp1.TP1" />
+      <module name="maven-ift3913-tp1" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;C:\Users\user\Documents\Model&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="model solo class" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="org.ift3913.tp1.TP1" />
+      <module name="maven-ift3913-tp1" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;C:\Users\user\Documents\Model\src\UserModel.java&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.model solo class" />
+      <item itemvalue="Application.model paquet" />
+      <item itemvalue="Application.Unnamed" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

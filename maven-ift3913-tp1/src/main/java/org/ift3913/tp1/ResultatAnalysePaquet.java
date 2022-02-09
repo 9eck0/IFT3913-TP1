@@ -32,7 +32,11 @@ public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultats
         return resultatsFichiers.stream().mapToInt(ResultatAnalyseFichier::lignesCommentaires).sum();
     }
 
-    public double DensiteCommentaires() {
+    public double densiteCommentaires() {
         return (double) lignesCommentairesPaquet() / (double) ligneCodesPaquet();
+    }
+
+    public int complexiteCyclomatiquePaquet() {
+        return resultatsFichiers.stream().mapToInt(ResultatAnalyseFichier::complexiteCyclomatique).sum();
     }
 }

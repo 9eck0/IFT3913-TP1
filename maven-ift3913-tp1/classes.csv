@@ -1,0 +1,7 @@
+chemin,class,classe_LOC,classe_CLOC,classe_DC,complexiteCyclomatiqueClasse
+C:\Users\user\Documents\Model\src\AppointmentModel.java,AppointmentModel,108,42,0.3888888888888889,9
+C:\Users\user\Documents\Model\src\CalendarModel.java,CalendarModel,28,11,0.39285714285714285,1
+C:\Users\user\Documents\Model\src\EmployeeModel.java,EmployeeModel,25,15,0.6,1
+C:\Users\user\Documents\Model\src\UserModel.java,UserModel,122,37,0.30327868852459017,3
+C:\Users\user\Documents\Model\src\VisitorModel.java,VisitorModel,121,48,0.39669421487603307,4
+C:\Users\user\Documents\Model\src\VolunteerModel.java,VolunteerModel,50,21,0.42,4
