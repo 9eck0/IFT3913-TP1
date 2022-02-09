@@ -7,9 +7,6 @@
     <list default="true" id="8fe289f6-7138-4aa7-804f-982b80911623" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalyseFichier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/ResultatAnalysePaquet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/TP1.java" afterDir="false" />
     </list>
     <list id="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" name="Changes by beaul" comment="" />
     <list id="40e4043f-8ebd-4e45-9443-b852f9d0085d" name="Changes by RJ" comment="" />
@@ -68,7 +65,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
-  <component name="RunManager" selected="Application.model paquet">
+  <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.ift3913.tp1.TP1" />
       <module name="maven-ift3913-tp1" />

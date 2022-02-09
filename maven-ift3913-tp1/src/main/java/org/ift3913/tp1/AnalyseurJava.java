@@ -5,6 +5,8 @@ import org.ift3913.tp1.automates.*;
 import java.io.*;
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.remove;
+
 /**
  * Un analyseur de codes Java pour un seul fichier de code.
  * <br>
@@ -33,7 +35,7 @@ public class AnalyseurJava {
 //    private AutomateTransition etatAutomateTernaire;
 //    private AutomateIdentifiant automateIdentifiant;
     private final Set<String> identifiantsStructuresDeControle = new HashSet<>(
-            Arrays.asList("if", "else", "while", "for", "switch"));
+            Arrays.asList("if(", "else", "while(", "for(", "switch("));
     // on sauvegarde les mots et leurs occurrences dans un hashmap qu'on videra pour compter
     // le nombre total de prédicat à la fin après l'analyse totale du fichier
     Map<String, Integer> occurenceIdentifiant = new HashMap<>();
@@ -80,7 +82,7 @@ public class AnalyseurJava {
                     occurenceIdentifiant.put(id, 0);
                 }
 
-                currentLine = currentLine.toLowerCase().strip();
+                currentLine = currentLine.toLowerCase().replaceAll("\\s", "");
                 // Si la ligne est vide (e.g. seulement des espaces blancs), on ne va pas la compter
                 if (currentLine.equals("")) continue;
 
@@ -108,6 +110,7 @@ public class AnalyseurJava {
                 // alors on ajoute son occurrence dans le hashmap et on incrémente son nombre
                 for (String identifiant : identifiantsStructuresDeControle) {
                     // TODO l'id peut être présent plus d'une fois dans la ligne mais n'est compter qu'une seule fois avec contains(id)
+
                     if (currentLine.contains(identifiant) && !etatAutomateCommentaires.valide()) {
                         int nbMot = occurenceIdentifiant.get(identifiant);
                         occurenceIdentifiant.put(identifiant, nbMot + 1);
