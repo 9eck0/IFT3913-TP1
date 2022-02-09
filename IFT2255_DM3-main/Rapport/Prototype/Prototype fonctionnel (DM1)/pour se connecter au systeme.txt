@@ -1,3 +1,0 @@
-identifiant  : employe
-mot de passe : 1234
-utiliser la méthode main de la classe VaxtoDo

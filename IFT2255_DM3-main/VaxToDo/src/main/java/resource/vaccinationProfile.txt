@@ -1,7 +1,0 @@
-visitor1 2000-12-02 Pfizer 000000
-visitor1 2000-12-02 Pfizer 000000
-visitor2 2000-12-02 Pfizer 000000
-visitor3 2000-12-02 Pfizer 000000
-visitor3 2000-12-02 Pfizer 000000
-visitor4 2000-12-02 Pfizer 000000
-visitor5 2000-12-02 Pfizer 000000

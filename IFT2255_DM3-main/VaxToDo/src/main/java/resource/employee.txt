@@ -1,5 +1,0 @@
-user1 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6.rue_de_la_maison H2P8T4 Montréal a
-user2 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6.rue_de_la_maison H2P8T4 Montréal a
-user3 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6.rue_de_la_maison H2P8T4 Montréal a
-user4 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6.rue_de_la_maison H2P8T4 Montréal a
-user5 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6.rue_de_la_maison H2P8T4 Montréal a

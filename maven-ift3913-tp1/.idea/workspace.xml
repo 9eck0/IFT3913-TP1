@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8fe289f6-7138-4aa7-804f-982b80911623" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/classes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paquets.csv" beforeDir="false" afterPath="$PROJECT_DIR$/paquets.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ift3913/tp1/AnalyseurJava.java" afterDir="false" />
     </list>
     <list id="d58cd8b8-32b9-411b-8ad8-3a3179a38e3f" name="Changes by beaul" comment="" />
     <list id="40e4043f-8ebd-4e45-9443-b852f9d0085d" name="Changes by RJ" comment="" />

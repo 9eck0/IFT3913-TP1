@@ -1,2 +1,0 @@
-Main-Class: out.application.VaxToDo.class
-

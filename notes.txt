@@ -1,7 +1,0 @@
-Le programme doit être capable de :
-
-1. traverser récursivement l'architecture de dossier windows
-2. prendre en entré les fichiers java, les analyser et les associer au bon package
-3. produire un csv en sortie
-
-camelcase java methods : unExempleDeMethodeJava

@@ -1,8 +1,0 @@
-visitor1 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6_rue_de_la_maison H2P8T4 Montréal
-visitor2 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6_rue_de_la_maison H2P8T4 Montréal
-visitor3 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6_rue_de_la_maison H2P8T4 Montréal
-visitor4 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6_rue_de_la_maison H2P8T4 Montréal
-visitor5 prenom nom 2000-12-02 prenom.nom@gmail.com 5142226666 6_rue_de_la_maison H2P8T4 Montréal
-lljjdztibn jean-françois mercier 2020-04-11 jfm@hotmail.com 1234567890 6_rue_de_la_maison_ H2P1T5 Quebec
-zsdhesdxwq id zr 2020-04-11 zuorb@yahoo.ca 987654321 7_rue_de_la_ GHJ987 Montréal
-kphzlztvkq v v 2020-02-02 v.v@gmail.com 1234567890 6_rue_de_la_maison J7J1W2 Laval

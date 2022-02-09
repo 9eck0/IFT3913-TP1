@@ -1,5 +1,0 @@
-quel type de conception ? conception évolutive ?
-quel architecture ? système interactif, base de donnée et evenementiel ?
-quel design ? Comment optimiser le couplage et la cohésion ? Quels sont les modules identifiables ?
-Quel patron de conception utiliser ? Singleton, Composite ? Quelles interfaces ?
-Comment anticiper les possibles changements dans la conception ?
