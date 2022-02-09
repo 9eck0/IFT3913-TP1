@@ -35,7 +35,7 @@ public class AnalyseurJava {
 //    private AutomateTransition etatAutomateTernaire;
 //    private AutomateIdentifiant automateIdentifiant;
     private final Set<String> identifiantsStructuresDeControle = new HashSet<>(
-            Arrays.asList("if(", "else", "while(", "for(", "switch("));
+            Arrays.asList("if(", "else", "while(", "for(", "switch(", "?"));
     // on sauvegarde les mots et leurs occurrences dans un hashmap qu'on videra pour compter
     // le nombre total de prédicat à la fin après l'analyse totale du fichier
     Map<String, Integer> occurenceIdentifiant = new HashMap<>();
@@ -105,13 +105,21 @@ public class AnalyseurJava {
 
                 }
 
+                // cas spécial : if, else et elseif peuvent interferer entre eux donc on traite
+                // else if en amont et on le supprime de la ligne après l'avoir rajouté
+                if (currentLine.contains("elseif(") && !etatAutomateCommentaires.valide()) {
+                    currentLine = currentLine.replace("elseif(", "");
+                    int nbMot = occurenceIdentifiant.get("if("); // on incrémente dans le mot if
+                    occurenceIdentifiant.put("if(", nbMot + 1);
+                }
+
                 // on commence par analyser les identifiants spéciaux dans la phrase
                 // si on trouve un mot spécial dans la phrase et qu'on n'est pas dans un commentaire
                 // alors on ajoute son occurrence dans le hashmap et on incrémente son nombre
                 for (String identifiant : identifiantsStructuresDeControle) {
-                    // TODO l'id peut être présent plus d'une fois dans la ligne mais n'est compter qu'une seule fois avec contains(id)
 
                     if (currentLine.contains(identifiant) && !etatAutomateCommentaires.valide()) {
+
                         int nbMot = occurenceIdentifiant.get(identifiant);
                         occurenceIdentifiant.put(identifiant, nbMot + 1);
                     }
