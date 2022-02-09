@@ -1,0 +1,10 @@
+- merger les branches
+- vérifier que toutes les méthodes soient bien documenter
+- builder le javadoc
+- stocker les paramètres de configuration dans un .properties
+- expliquer comment faire l'appel dans le cmd prompt dans un readme.txt
+- compiler et rendre le jar executable
+- tester le code sur le projet jfreechart rajouter dans la racine
+- interpréter les résultats et mettre nos commentaires dans le readme
+- choisir un projet java peu commenter sur git
+- rouler une nouvelle fois le code sur ce projet et créer une pull request suggérant de rajouter des commentaires
