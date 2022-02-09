@@ -2,8 +2,7 @@ package org.ift3913.tp1;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Une classe contenant des fonctions utilitaires statiques, communes à plusieurs classes.
@@ -11,6 +10,26 @@ import java.util.Objects;
  * @author Pierre Janier Dubry et Rui Jie Liu
  */
 public class Utils {
+
+    /**
+     * Identifiants servant à dénoter le début d'un branchement
+     */
+    public static final Set<String> identifiantsStructuresDeControle = new HashSet<>(
+            Arrays.asList("if", "while", "for", "switch"));
+
+    /**
+     * Identifiants servant à dénoter les keywords permissibles pour la définition des classes (Java 16).
+     * Ces identifiants doivent absolument se retrouver immédiatement avant le nom de la classe
+     */
+    public static final Set<String> identifiantsClasses = new HashSet<>(
+            Arrays.asList("class", "enum", "interface", "record"));
+
+    /**
+     * Mots-clés permissibles dans la déclaration de la signature d'une méthode.
+     * Ces mots-clés viennent juste avant la déclaration de type de la méthode
+     */
+    public static final Set<String> identifiantsMethodes = new HashSet<>(
+            Arrays.asList("default", "final", "native", "private", "protected", "public", "static", "synchronized"));
 
     /**
      * Obtenir l'extension d'un fichier, en minuscules, à partir de son chemin.

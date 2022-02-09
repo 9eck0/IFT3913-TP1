@@ -1,4 +1,4 @@
-package org.ift3913.tp1.automates;
+package org.ift3913.tp1.analyse;
 
 /**
  * Représente un automate pour l'analyse des littéraux de caractères.

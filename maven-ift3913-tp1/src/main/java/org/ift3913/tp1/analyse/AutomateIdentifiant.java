@@ -1,4 +1,4 @@
-package org.ift3913.tp1.automates;
+package org.ift3913.tp1.analyse;
 
 /**
  * Enum interne de l'{@linkplain AutomateIdentifiant}. Ne pas directement référencer.

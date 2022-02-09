@@ -1,4 +1,4 @@
-package org.ift3913.tp1.automates;
+package org.ift3913.tp1.analyse;
 
 /**
  * Cette Enum définit le comportement d'un automate fini servant à analyser caractère-par-caractère

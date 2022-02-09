@@ -1,4 +1,4 @@
-package org.ift3913.tp1.automates;
+package org.ift3913.tp1.analyse;
 
 /**
  * Représente un résultat de la transition d'un {@link AutomateTransition} (style Mealy).

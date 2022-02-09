@@ -1,5 +1,7 @@
 package org.ift3913.tp1;
 
+import org.ift3913.tp1.analyse.AnalyseurJava;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,6 +1,7 @@
-package org.ift3913.tp1;
+package org.ift3913.tp1.analyse;
 
-import org.ift3913.tp1.automates.*;
+import org.ift3913.tp1.ResultatAnalyseFichier;
+import org.ift3913.tp1.Utils;
 
 import java.io.*;
 import java.util.*;
@@ -16,6 +17,11 @@ import java.util.*;
  */
 public class AnalyseurJava {
 
+    /**
+     * Définit le type de l'imbrication l'analyseur est actuellement à l'intérieur de.
+     */
+    enum TypeImbrication { Classe, Methode, StructureControle, Autre }
+
     //region ================================ CHAMPS ================================
 
     /**
@@ -28,13 +34,12 @@ public class AnalyseurJava {
     // TODO: utiliser ce BufferedReader pour lire le fichier à analyser
     private BufferedReader fileStream;
 
+    private Stack<TypeImbrication> imbrication = new Stack<>();
+
     private AutomateEtat etatAutomateCommentaires;
     private AutomateEtat etatAutomateStrings;
     private AutomateEtat etatAutomateChar;
     private AutomateIdentifiant automateIdentifiant;
-    // Identifiants servant pour dénoter le début d'un branchement
-    private final Set<String> identifiantsStructuresDeControle = new HashSet<>(
-            Arrays.asList("if", "while", "for", "switch"));
 
     //endregion CHAMPS
 
@@ -92,10 +97,15 @@ public class AnalyseurJava {
 
                     // Tester identifiant structure de contrôle
                     if (identifiant != null
-                            && identifiantsStructuresDeControle.contains(identifiant)
                             && !etatAutomateCommentaires.valide()
                             && !etatAutomateStrings.valide()
-                            && !etatAutomateChar.valide()) noeud++;
+                            && !etatAutomateChar.valide()) {
+
+                        if (Utils.identifiantsClasses.contains(identifiant))
+
+                        // Structures de contrôle
+                        if (Utils.identifiantsStructuresDeControle.contains(identifiant)) noeud++;
+                    }
 
                     // Obtenir le prochain état des automates Moore
                     etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat(nextChar);
@@ -145,14 +155,6 @@ public class AnalyseurJava {
         String extensionFichier = "." + Utils.obtenirExtensionFichier(fichier.toPath());
         String nomClasse = fichier.getName().replace(extensionFichier, "");
         return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath(), noeud);
-    }
-
-    private int getSumValue(Map<String, Integer> map) {
-        int n = 0;
-        for (String id : map.keySet()) {
-            n += map.get(id);
-        }
-        return n;
     }
 
     //endregion MÉTHODES
