@@ -74,7 +74,7 @@ enum AutomateIdentifiantInterne implements AutomateTransition {
  */
 public class AutomateIdentifiant {
     private StringBuilder identifiant = new StringBuilder();
-    private AutomateIdentifiantInterne etatActuel = AutomateIdentifiantInterne.Initial;
+    private AutomateTransition etatActuel = AutomateIdentifiantInterne.Initial;
 
     /**
      * Faire avancer l'automate d'un caractère dans le code, en fournissant le prochain caractère
@@ -89,7 +89,11 @@ public class AutomateIdentifiant {
     public String prochainCaractere(char prochainChar) {
 
         ResultatTransitionAutomate resultat = etatActuel.prochainEtat(prochainChar);
-        identifiant.append(prochainChar);
+        etatActuel = resultat.prochainEtat();
+
+        if (etatActuel == AutomateIdentifiantInterne.DebutIdentifiant || etatActuel == AutomateIdentifiantInterne.Identifiant) {
+            identifiant.append(prochainChar);
+        }
 
         if (resultat.valide()) {
             String identifiantValide = identifiant.toString();

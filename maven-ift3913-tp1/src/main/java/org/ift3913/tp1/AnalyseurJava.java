@@ -5,8 +5,6 @@ import org.ift3913.tp1.automates.*;
 import java.io.*;
 import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.remove;
-
 /**
  * Un analyseur de codes Java pour un seul fichier de code.
  * <br>
@@ -31,14 +29,12 @@ public class AnalyseurJava {
     private BufferedReader fileStream;
 
     private AutomateEtat etatAutomateCommentaires;
-    //    private AutomateEtat etatAutomateStrings;
-//    private AutomateTransition etatAutomateTernaire;
-//    private AutomateIdentifiant automateIdentifiant;
+    private AutomateEtat etatAutomateStrings;
+    private AutomateEtat etatAutomateChar;
+    private AutomateIdentifiant automateIdentifiant;
+    // Identifiants servant pour dénoter le début d'un branchement
     private final Set<String> identifiantsStructuresDeControle = new HashSet<>(
-            Arrays.asList("if(", "else", "while(", "for(", "switch(", "?"));
-    // on sauvegarde les mots et leurs occurrences dans un hashmap qu'on videra pour compter
-    // le nombre total de prédicat à la fin après l'analyse totale du fichier
-    Map<String, Integer> occurenceIdentifiant = new HashMap<>();
+            Arrays.asList("if", "while", "for", "switch"));
 
     //endregion CHAMPS
 
@@ -57,9 +53,9 @@ public class AnalyseurJava {
 
     private void initialiser() {
         this.etatAutomateCommentaires = AutomateCommentaires.Initial;
-//        this.etatAutomateStrings = AutomateStrings.Initial;
-//        this.etatAutomateTernaire = AutomateTernaire.Initial;
-//        this.automateIdentifiant = new AutomateIdentifiant();
+        this.etatAutomateStrings = AutomateStrings.Initial;
+        this.etatAutomateChar = AutomateChar.Initial;
+        this.automateIdentifiant = new AutomateIdentifiant();
     }
 
     public ResultatAnalyseFichier analyser() throws FileNotFoundException {
@@ -68,71 +64,66 @@ public class AnalyseurJava {
         // Statistiques à analyser
         int lignesDeCode = 0;
         int lignesCommentaires = 0;
-        int noeud = 0; // pour la complexité cyclomatique de McCabe
+        int noeud = 1; // pour la complexité cyclomatique de McCabe
 
         try {
             fileStream = new BufferedReader(new FileReader(fichier));
-            String currentLine;
+            String ligneActuelle;
 
             // lecture du contenu du fichier
-            while ((currentLine = fileStream.readLine()) != null) {
+            while ((ligneActuelle = fileStream.readLine()) != null) {
+                ligneActuelle = ligneActuelle.toLowerCase().strip();
 
-                // réinitialisation : on remet les compteurs à zero pour compter la ligne suivante
-                for (String id : identifiantsStructuresDeControle) {
-                    occurenceIdentifiant.put(id, 0);
-                }
-
-                currentLine = currentLine.toLowerCase().replaceAll("\\s", "");
                 // Si la ligne est vide (e.g. seulement des espaces blancs), on ne va pas la compter
-                if (currentLine.equals("")) continue;
+                if (ligneActuelle.equals("")) continue;
 
                 // Un verrou pour empêcher l'incrémentation de la lignesCommentaires
                 // lorsqu'on est toujours sur la même ligne
-                boolean isSameLine = false;
+                boolean commentaireTrouve = false;
 
                 // traiter la ligne caractère-par-caractère à l'intérieur de l'automate
-                for (int i = 0; i < currentLine.length(); i++) {
-                    char nextChar = currentLine.charAt(i);
+                for (int i = 0; i < ligneActuelle.length(); i++) {
+                    char nextChar = ligneActuelle.charAt(i);
 
-                    // Obtenir le prochain état des automates
+                    // Obtenir le prochain état des automates Mealy
+                    /* les automates Mealy se réfèrent au caractère précédent pour leurs résultats,
+                       donc doivent être traités avant que les automates Moore passent au prochain caractère.*/
+                    String identifiant = automateIdentifiant.prochainCaractere(nextChar);
+
+                    // Tester identifiant structure de contrôle
+                    if (identifiant != null
+                            && identifiantsStructuresDeControle.contains(identifiant)
+                            && !etatAutomateCommentaires.valide()
+                            && !etatAutomateStrings.valide()
+                            && !etatAutomateChar.valide()) noeud++;
+
+                    // Obtenir le prochain état des automates Moore
                     etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat(nextChar);
+                    etatAutomateStrings = etatAutomateStrings.prochainEtat(nextChar);
+                    etatAutomateChar = etatAutomateChar.prochainEtat(nextChar);
 
-                    if (!isSameLine && etatAutomateCommentaires.valide()) {
-                        // cette ligne contient un commentaire
-                        lignesCommentaires++;
-                        isSameLine = true;
-                    }
+                    if (etatAutomateCommentaires.valide()) {
+                        if (!commentaireTrouve) {
+                            // cette ligne contient un commentaire
+                            lignesCommentaires++;
+                            commentaireTrouve = true;
+                        }
+                    } else if (!etatAutomateStrings.valide() && !etatAutomateChar.valide()) {
+                        // code Java brut (pas un commentaire/String/char)
 
-                }
-
-                // cas spécial : if, else et elseif peuvent interferer entre eux donc on traite
-                // else if en amont et on le supprime de la ligne après l'avoir rajouté
-                if (currentLine.contains("elseif(") && !etatAutomateCommentaires.valide()) {
-                    currentLine = currentLine.replace("elseif(", "");
-                    int nbMot = occurenceIdentifiant.get("if("); // on incrémente dans le mot if
-                    occurenceIdentifiant.put("if(", nbMot + 1);
-                }
-
-                // on commence par analyser les identifiants spéciaux dans la phrase
-                // si on trouve un mot spécial dans la phrase et qu'on n'est pas dans un commentaire
-                // alors on ajoute son occurrence dans le hashmap et on incrémente son nombre
-                for (String identifiant : identifiantsStructuresDeControle) {
-
-                    if (currentLine.contains(identifiant) && !etatAutomateCommentaires.valide()) {
-
-                        int nbMot = occurenceIdentifiant.get(identifiant);
-                        occurenceIdentifiant.put(identifiant, nbMot + 1);
+                        // Identification opérateur ternaire
+                        if (nextChar == '?') noeud++;
                     }
                 }
 
-                // récupère la somme des valeurs de toutes les clés.
-                noeud += getSumValue(occurenceIdentifiant);
-
-                // Une fois le traitement caractère-par-caractère pour la ligne est finie,
-                // soumettre manuellement le caractère de retour de ligne à l'automate
-                // Ce caractère est simplement un signal à l'automate qu'une fin de ligne est atteinte
-                // et indépendant de la plateforme sur lequel le programme est exécuté.
+                /* Une fois le traitement caractère-par-caractère pour la ligne est finie,
+                   soumettre manuellement le caractère de retour de ligne aux automates
+                   Ce caractère est simplement un signal à chaque automate qu'une fin de ligne est atteinte
+                   et indépendant de la plateforme sur lequel le programme est exécuté. */
                 etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat('\n');
+                etatAutomateStrings = etatAutomateStrings.prochainEtat('\n');
+                etatAutomateChar = etatAutomateChar.prochainEtat('\n');
+                automateIdentifiant.prochainCaractere('\n');
 
                 lignesDeCode++;
             }
@@ -153,7 +144,7 @@ public class AnalyseurJava {
         // on récupère les chemins et on termine
         String extensionFichier = "." + Utils.obtenirExtensionFichier(fichier.toPath());
         String nomClasse = fichier.getName().replace(extensionFichier, "");
-        return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath(), noeud + 1);
+        return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath(), noeud);
     }
 
     private int getSumValue(Map<String, Integer> map) {
