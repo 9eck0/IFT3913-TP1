@@ -90,8 +90,8 @@ public class TP1 {
      */
     static final String NOM_CSVPAQUETS = "paquets.csv";
     // En-têtes des fichiers CSV
-    static final String ENTETE_CSVCLASSES = "chemin,class,classe_LOC,classe_CLOC,classe_DC,complexiteCyclomatiqueClasse,classe_BC";
-    static final String ENTETE_CSVPAQUETS = "chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,complexiteCyclomatiquePaquet,paquet_BC";
+    static final String ENTETE_CSVCLASSES = "chemin,class,classe_LOC,classe_CLOC,classe_DC,WMC,classe_BC";
+    static final String ENTETE_CSVPAQUETS = "chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,WCP,paquet_BC";
 
     //endregion CHAMPS
 
