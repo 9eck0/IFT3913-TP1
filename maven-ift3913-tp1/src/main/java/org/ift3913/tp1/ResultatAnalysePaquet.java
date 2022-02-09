@@ -39,4 +39,9 @@ public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultats
     public int complexiteCyclomatiquePaquet() {
         return resultatsFichiers.stream().mapToInt(ResultatAnalyseFichier::complexiteCyclomatique).sum();
     }
+
+    public double paquetBC() {
+        return densiteCommentaires()/complexiteCyclomatiquePaquet();
+    }
+
 }

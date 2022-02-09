@@ -14,8 +14,12 @@ public record ResultatAnalyseFichier(String nomClasse, int lignesDeCode, int lig
     }
 
     public String toString() {
-        return "%s,%s,%s,%s,%s,%s".formatted(cheminFichier(), nomClasse,
-                lignesDeCode, lignesCommentaires, densiteCommentaires(), complexiteCyclomatique);
+        return "%s,%s,%s,%s,%s,%s,%s".formatted(cheminFichier(), nomClasse,
+                lignesDeCode, lignesCommentaires, densiteCommentaires(), complexiteCyclomatique,classeBC());
+    }
+
+    public double classeBC() {
+        return densiteCommentaires()/complexiteCyclomatique;
     }
 
 }

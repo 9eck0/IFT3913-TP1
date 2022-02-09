@@ -1,7 +1,7 @@
-chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,complexiteCyclomatiquePaquet
-C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\Model,Model,454,174,0.3832599118942731,18
-C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\utils,utils,97,29,0.29896907216494845,6
-C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\application,application,11,3,0.2727272727272727,1
-C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\Repository,Repository,647,171,0.2642967542503864,57
-C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\Controller,Controller,1984,727,0.36643145161290325,81
-C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\View,View,859,48,0.05587892898719441,21
+chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,complexiteCyclomatiquePaquet,paquet_BC
+C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\Model,Model,454,174,0.3832599118942731,18,0.021292217327459617
+C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\utils,utils,97,29,0.29896907216494845,6,0.04982817869415807
+C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\application,application,11,3,0.2727272727272727,1,0.2727272727272727
+C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\Repository,Repository,647,171,0.2642967542503864,57,0.00463678516228748
+C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\Controller,Controller,1984,727,0.36643145161290325,81,0.004523845081640781
+C:\Users\user\Documents\UdeM\IFT3913 - Qualité du logiciel et métriques\TP\TP1\IFT3913-TP1\IFT2255_DM3-main\VaxToDo\src\main\java\View,View,859,48,0.05587892898719441,21,0.002660901380342591

@@ -90,8 +90,8 @@ public class TP1 {
      */
     static final String NOM_CSVPAQUETS = "paquets.csv";
     // En-têtes des fichiers CSV
-    static final String ENTETE_CSVCLASSES = "chemin,class,classe_LOC,classe_CLOC,classe_DC,complexiteCyclomatiqueClasse";
-    static final String ENTETE_CSVPAQUETS = "chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,complexiteCyclomatiquePaquet";
+    static final String ENTETE_CSVCLASSES = "chemin,class,classe_LOC,classe_CLOC,classe_DC,complexiteCyclomatiqueClasse,classe_BC";
+    static final String ENTETE_CSVPAQUETS = "chemin,paquet,paquet_LOC,paquet_CLOC,paquet_DC,complexiteCyclomatiquePaquet,paquet_BC";
 
     //endregion CHAMPS
 
@@ -227,9 +227,9 @@ public class TP1 {
             // Écriture des lignes de statistiques de classes
             for (ResultatAnalysePaquet paquet : resultats) {
                 csvWriter.newLine();
-                csvWriter.write("%s,%s,%s,%s,%s,%s".formatted(paquet.chemin(), paquet.nomPaquet(),
+                csvWriter.write("%s,%s,%s,%s,%s,%s,%s".formatted(paquet.chemin(), paquet.nomPaquet(),
                         paquet.ligneCodesPaquet(), paquet.lignesCommentairesPaquet(),
-                        paquet.densiteCommentaires(), paquet.complexiteCyclomatiquePaquet()));
+                        paquet.densiteCommentaires(), paquet.complexiteCyclomatiquePaquet(), paquet.paquetBC()));
             }
 
             csvWriter.close();
