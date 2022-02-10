@@ -5,6 +5,7 @@ import org.ift3913.tp1.Utils;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Un analyseur de codes Java pour un seul fichier de code.
@@ -34,12 +35,17 @@ public class AnalyseurJava {
     // TODO: utiliser ce BufferedReader pour lire le fichier à analyser
     private BufferedReader fileStream;
 
-    private Stack<TypeImbrication> imbrication = new Stack<>();
-
     private AutomateEtat etatAutomateCommentaires;
     private AutomateEtat etatAutomateStrings;
     private AutomateEtat etatAutomateChar;
     private AutomateIdentifiant automateIdentifiant;
+    private AutomateEtatMots etatAutomateClasses;
+    private AutomateEtatMots etatAutomateMethodes;
+
+    // Statistiques à analyser
+    private int lignesDeCode = 0;
+    private int lignesCommentaires = 0;
+    private int noeud = 1; // pour la complexité cyclomatique de McCabe
 
     //endregion CHAMPS
 
@@ -54,22 +60,48 @@ public class AnalyseurJava {
 
     //endregion CONSTRUCTEUR
 
-    //region ================================ MÉTHODES ================================
+    //region ================================ MÉTHODES UTILITAIRES ================================
+
+    // Lire l'entièreté du fichier
+    private String lireToutFichier(File fichier) throws FileNotFoundException {
+        fileStream = new BufferedReader(new FileReader(fichier));
+        return fileStream.lines().collect(Collectors.joining());
+    }
+
+    // Décomposer une ligne brute en plusieurs lignes à partir des caractères de séparation de codes (';', '{', '}')
+    private List<String> decomposerLigne(String ligne) {
+        ligne = ligne.replace(";", ";\n");
+        ligne = ligne.replace("{", "{\n");
+        ligne = ligne.replace("}", "}\n");
+        return Arrays.stream(ligne.split("\n")).toList();
+    }
+
+    //endregion MÉTHODES UTILITAIRES
+
+    //region ================================ MÉTHODES D'ANALYSE ================================
 
     private void initialiser() {
         this.etatAutomateCommentaires = AutomateCommentaires.Initial;
         this.etatAutomateStrings = AutomateStrings.Initial;
         this.etatAutomateChar = AutomateChar.Initial;
         this.automateIdentifiant = new AutomateIdentifiant();
+        this.etatAutomateClasses = AutomateClasses.Initial;
+        this.etatAutomateMethodes = AutomateMethodes.Initial;
+
+        // Réinitialiser les valeurs d'objectif
+        this.lignesDeCode = 0;
+        this.lignesCommentaires = 0;
+        this.noeud = 1;
     }
 
+    /**
+     * Analyser le fichier spécifié lors de la construction de cet analyseur.
+     * @return le résultat d'analyse du fichier
+     * @throws FileNotFoundException si le fichier est inaccessible (e.g. n'existe plus)
+     */
     public ResultatAnalyseFichier analyser() throws FileNotFoundException {
+        // Réinitialiser toutes les variables d'analyse
         initialiser();
-
-        // Statistiques à analyser
-        int lignesDeCode = 0;
-        int lignesCommentaires = 0;
-        int noeud = 1; // pour la complexité cyclomatique de McCabe
 
         try {
             fileStream = new BufferedReader(new FileReader(fichier));
@@ -77,57 +109,16 @@ public class AnalyseurJava {
 
             // lecture du contenu du fichier
             while ((ligneActuelle = fileStream.readLine()) != null) {
-                ligneActuelle = ligneActuelle.toLowerCase().strip();
+                ligneActuelle = ligneActuelle.strip();
 
                 // Si la ligne est vide (e.g. seulement des espaces blancs), on ne va pas la compter
                 if (ligneActuelle.equals("")) continue;
 
-                // Un verrou pour empêcher l'incrémentation de la lignesCommentaires
-                // lorsqu'on est toujours sur la même ligne
-                boolean commentaireTrouve = false;
-
-                // traiter la ligne caractère-par-caractère à l'intérieur de l'automate
-                for (int i = 0; i < ligneActuelle.length(); i++) {
-                    char nextChar = ligneActuelle.charAt(i);
-
-                    // Obtenir le prochain état des automates Mealy
-                    /* les automates Mealy se réfèrent au caractère précédent pour leurs résultats,
-                       donc doivent être traités avant que les automates Moore passent au prochain caractère.*/
-                    String identifiant = automateIdentifiant.prochainCaractere(nextChar);
-
-                    // Tester identifiant structure de contrôle
-                    if (identifiant != null
-                            && !etatAutomateCommentaires.valide()
-                            && !etatAutomateStrings.valide()
-                            && !etatAutomateChar.valide()) {
-
-                        if (Utils.identifiantsClasses.contains(identifiant))
-
-                        // Structures de contrôle
-                        if (Utils.identifiantsStructuresDeControle.contains(identifiant)) noeud++;
-                    }
-
-                    // Obtenir le prochain état des automates Moore
-                    etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat(nextChar);
-                    etatAutomateStrings = etatAutomateStrings.prochainEtat(nextChar);
-                    etatAutomateChar = etatAutomateChar.prochainEtat(nextChar);
-
-                    if (etatAutomateCommentaires.valide()) {
-                        if (!commentaireTrouve) {
-                            // cette ligne contient un commentaire
-                            lignesCommentaires++;
-                            commentaireTrouve = true;
-                        }
-                    } else if (!etatAutomateStrings.valide() && !etatAutomateChar.valide()) {
-                        // code Java brut (pas un commentaire/String/char)
-
-                        // Identification opérateur ternaire
-                        if (nextChar == '?') noeud++;
-                    }
-                }
+                // Analyser caractère-par-caractère la ligne actuelle
+                analyserParCaractere(ligneActuelle);
 
                 /* Une fois le traitement caractère-par-caractère pour la ligne est finie,
-                   soumettre manuellement le caractère de retour de ligne aux automates
+                   soumettre manuellement le caractère de retour de ligne aux automates.
                    Ce caractère est simplement un signal à chaque automate qu'une fin de ligne est atteinte
                    et indépendant de la plateforme sur lequel le programme est exécuté. */
                 etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat('\n');
@@ -137,8 +128,6 @@ public class AnalyseurJava {
 
                 lignesDeCode++;
             }
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("Le fichier à analyser n'existe plus sur le disque!");
         } catch (IOException e) {
             System.out.println("Une erreur s'est produite lors de la lecture du fichier à analyser: " + e.getMessage());
             e.printStackTrace();
@@ -151,11 +140,72 @@ public class AnalyseurJava {
             e.printStackTrace();
         }
 
-        // on récupère les chemins et on termine
+        // on récupère les résultats et on termine
         String extensionFichier = "." + Utils.obtenirExtensionFichier(fichier.toPath());
         String nomClasse = fichier.getName().replace(extensionFichier, "");
         return new ResultatAnalyseFichier(nomClasse, lignesDeCode, lignesCommentaires, fichier.toPath(), noeud);
     }
 
-    //endregion MÉTHODES
+    // Analyser une ligne caractère-par-caractère
+    private void analyserParCaractere(String ligneActuelle) {
+        // Un verrou pour empêcher l'incrémentation de la statistique lignesCommentaires
+        // lorsqu'on est toujours sur la même ligne
+        boolean commentaireTrouve = false;
+
+        // traiter la ligne caractère-par-caractère à l'intérieur de l'automate
+        for (int i = 0; i < ligneActuelle.length(); i++) {
+            char nextChar = ligneActuelle.charAt(i);
+
+            // Obtenir le prochain état des automates Mealy
+            /* les automates Mealy se réfèrent au caractère précédent pour leurs résultats,
+               donc doivent être traités avant que les automates Moore passent au prochain caractère.*/
+            String identifiant = automateIdentifiant.prochainCaractere(nextChar);
+
+            // Tester les structures
+            if (identifiant != null
+                    && !etatAutomateCommentaires.valide()
+                    && !etatAutomateStrings.valide()
+                    && !etatAutomateChar.valide()) {
+
+                etatAutomateClasses = etatAutomateClasses.prochainEtat(identifiant);
+                etatAutomateMethodes = etatAutomateMethodes.prochainEtat(identifiant);
+
+                // Structures de contrôle
+                if (Utils.identifiantsStructuresDeControle.contains(identifiant)) noeud++;
+            }
+
+            // Obtenir le prochain état des automates Moore
+            etatAutomateCommentaires = etatAutomateCommentaires.prochainEtat(nextChar);
+            etatAutomateStrings = etatAutomateStrings.prochainEtat(nextChar);
+            etatAutomateChar = etatAutomateChar.prochainEtat(nextChar);
+
+            if (etatAutomateCommentaires.valide()) {
+                if (!commentaireTrouve) {
+                    // cette ligne contient un commentaire
+                    lignesCommentaires++;
+                    commentaireTrouve = true;
+                }
+            } else if (!etatAutomateStrings.valide() && !etatAutomateChar.valide()) {
+                // code Java brut (pas un commentaire/String/char)
+
+                if (nextChar == '?') {
+                    // Identification opérateur ternaire
+                    noeud++;
+                }
+                else if (Arrays.asList('{', '(', ')', '<', '>').contains(nextChar)) {
+                    // Identification classes / méthodes
+                    etatAutomateClasses = etatAutomateClasses.prochainEtat(String.valueOf(nextChar));
+                    etatAutomateMethodes = etatAutomateMethodes.prochainEtat(String.valueOf(nextChar));
+                    if (etatAutomateClasses.valide()) {
+                        System.out.println("Classe valide trouvée. Ligne: " + ligneActuelle);
+                    } else if (etatAutomateMethodes.valide()) {
+                        noeud++;
+                        System.out.println("Méthode valide trouvée. Ligne: " + ligneActuelle);
+                    }
+                }
+            }
+        }
+    }
+
+    //endregion MÉTHODES D'ANALYSE
 }

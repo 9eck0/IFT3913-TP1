@@ -19,7 +19,8 @@ enum AutomateClasses implements AutomateEtatMots {
         }
 
         public AutomateClasses prochainEtat(String prochainMot) {
-            if (Utils.identifiantsClasses.contains(prochainMot)) return NomClasse;
+            if (prochainMot.equals("record")) return NomRecord;
+            else if (Utils.identifiantsDeclarationClasses.contains(prochainMot)) return NomClasse;
             else return Initial;
         }
     },
@@ -31,7 +32,41 @@ enum AutomateClasses implements AutomateEtatMots {
 
         public AutomateClasses prochainEtat(String prochainMot) {
             if (prochainMot.equals("{")) return DebutClasse;
-            else return Implementation;
+            else if (Utils.identifiantsImplementationClasses.contains(prochainMot)) return Implementation;
+            else return Initial;
+        }
+    },
+
+    NomRecord {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateClasses prochainEtat(String prochainMot) {
+            if (prochainMot.equals("(")) return DeclarationRecord;
+            else return Initial;
+        }
+    },
+
+    DeclarationRecord {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateClasses prochainEtat(String prochainMot) {
+            if (prochainMot.equals(")")) return FinDeclarationRecord;
+            else return DeclarationRecord;
+        }
+    },
+
+    FinDeclarationRecord {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateClasses prochainEtat(String prochainMot) {
+            if (prochainMot.equals("{")) return DeclarationRecord;
+            else return Initial;
         }
     },
 
@@ -42,6 +77,7 @@ enum AutomateClasses implements AutomateEtatMots {
 
         public AutomateClasses prochainEtat(String prochainMot) {
             if (prochainMot.equals("{")) return DebutClasse;
+            else if (Utils.identifiantsAutres.contains(prochainMot)) return Initial;
             else return Implementation;
         }
     },
@@ -52,7 +88,7 @@ enum AutomateClasses implements AutomateEtatMots {
         }
 
         public AutomateClasses prochainEtat(String prochainMot) {
-            if (Utils.identifiantsClasses.contains(prochainMot)) return NomClasse;
+            if (Utils.identifiantsDeclarationClasses.contains(prochainMot)) return NomClasse;
             else return Initial;
         }
     }
@@ -70,8 +106,8 @@ enum AutomateMethodes implements AutomateEtatMots {
         }
 
         public AutomateMethodes prochainEtat(String prochainMot) {
-            if (Utils.identifiantsMethodes.contains(prochainMot)) return Modificateurs;
-            else if (prochainMot.equals("void")) return NomMethode;
+            if (Utils.identifiantsModificateursMethodes.contains(prochainMot)) return Modificateurs;
+            else if (!Utils.estMotCleJava(prochainMot)) return NomMethode;
             else return Initial;
         }
     },
@@ -82,7 +118,8 @@ enum AutomateMethodes implements AutomateEtatMots {
         }
 
         public AutomateMethodes prochainEtat(String prochainMot) {
-            return null;
+            if (Utils.identifiantsModificateursMethodes.contains(prochainMot)) return Modificateurs;
+            else return Type;
         }
     },
 
@@ -91,8 +128,19 @@ enum AutomateMethodes implements AutomateEtatMots {
             return false;
         }
 
+        int nestedTypes = 0;
         public AutomateMethodes prochainEtat(String prochainMot) {
-            return null;
+            if (Utils.identifiantsDeclarationClasses.contains(prochainMot)) return Initial;
+            else if (prochainMot.equals("<")) {
+                nestedTypes++;
+                return this;
+            }
+            else if (prochainMot.equals(">") && nestedTypes > 0) {
+                nestedTypes--;
+            }
+            if (nestedTypes > 0) return this;
+            else if (Utils.identifiantValide(prochainMot)) return NomMethode;
+            else return Initial;
         }
     },
 
@@ -102,7 +150,8 @@ enum AutomateMethodes implements AutomateEtatMots {
         }
 
         public AutomateMethodes prochainEtat(String prochainMot) {
-            return null;
+            if (prochainMot.equals("(")) return Arguments;
+            else return Initial;
         }
     },
 
@@ -112,7 +161,20 @@ enum AutomateMethodes implements AutomateEtatMots {
         }
 
         public AutomateMethodes prochainEtat(String prochainMot) {
-            return null;
+            if (prochainMot.equals(")")) return FinArguments;
+            else if (prochainMot.equals("{")) return Initial;
+            else return Arguments;
+        }
+    },
+
+    FinArguments {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateMethodes prochainEtat(String prochainMot) {
+            if (prochainMot.equals("{")) return DebutMethode;
+            else return Initial;
         }
     },
 
@@ -122,7 +184,7 @@ enum AutomateMethodes implements AutomateEtatMots {
         }
 
         public AutomateMethodes prochainEtat(String prochainMot) {
-            return null;
+            return Initial;
         }
     }
 }

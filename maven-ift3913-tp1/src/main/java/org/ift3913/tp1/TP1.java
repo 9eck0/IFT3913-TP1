@@ -30,6 +30,7 @@ public class TP1 {
             File potentialPath = new File(arg);
             if (potentialPath.exists()) {
                 cheminBase = potentialPath;
+                break;
             }
             // TODO: refaire les entrées des arguments d'appels pour tenir en compte des "pointeurs" aux arguments
         }
@@ -42,6 +43,8 @@ public class TP1 {
         // Lancer la partie logique du programme
 
         if (cheminBase.isDirectory()) {
+            System.out.println("Analyser un projet à partir de: " + cheminBase);
+
             // Analyse paquet : parcours du contenu du dossier
             Collection<ResultatAnalysePaquet> resultats = analyserPaquet(cheminBase);
 
@@ -51,6 +54,8 @@ public class TP1 {
             creerCsvClasses(resultats, new File(cheminFichierCsvClasses));
             creerCsvPaquets(resultats, new File(cheminFichierCsvPaquets));
         } else {
+            System.out.println("Analyser un fichier Java (" + cheminBase + ")");
+
             // Analyse fichier simple : pas d'architecture à parcourir
             ResultatAnalyseFichier resultat = analyserFichier(cheminBase);
 

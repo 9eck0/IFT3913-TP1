@@ -12,24 +12,72 @@ import java.util.*;
 public class Utils {
 
     /**
-     * Identifiants servant à dénoter le début d'un branchement
+     * Identifiants servant à modifier l'accès d'une classe ou sous-classe.
+     * Peuvent seulement apparaître avant le nom de la classe.
      */
-    public static final Set<String> identifiantsStructuresDeControle = new HashSet<>(
-            Arrays.asList("if", "while", "for", "switch"));
+    public static final Set<String> identifiantsModificateursClasses = new HashSet<>(
+            Arrays.asList("abstract", "final", "non-sealed", "private", "public", "sealed", "static"));
 
     /**
      * Identifiants servant à dénoter les keywords permissibles pour la définition des classes (Java 16).
      * Ces identifiants doivent absolument se retrouver immédiatement avant le nom de la classe
      */
-    public static final Set<String> identifiantsClasses = new HashSet<>(
+    public static final Set<String> identifiantsDeclarationClasses = new HashSet<>(
             Arrays.asList("class", "enum", "interface", "record"));
 
     /**
-     * Mots-clés permissibles dans la déclaration de la signature d'une méthode.
-     * Ces mots-clés viennent juste avant la déclaration de type de la méthode
+     * Identifiants servant à modifier la flexibilité d'hiérarchiser une classe ou sous-classe.
+     * Peuvent seulement apparaître après le nom de la classe.
      */
-    public static final Set<String> identifiantsMethodes = new HashSet<>(
+    public static final Set<String> identifiantsImplementationClasses = new HashSet<>(
+            Arrays.asList("extends", "implements", "permits"));
+
+    /**
+     * Mots-clés permissibles dans la déclaration de la signature d'une méthode.
+     * Ces mots-clés viennent juste avant la déclaration de type de la méthode.
+     */
+    public static final Set<String> identifiantsModificateursMethodes = new HashSet<>(
             Arrays.asList("default", "final", "native", "private", "protected", "public", "static", "synchronized"));
+
+    public static final Set<String> identifiantsTypesNatifs = new HashSet<>(
+            Arrays.asList("boolean", "byte", "char", "double", "float", "int", "long", "short", "short", "void"));
+
+    /**
+     * Identifiants servant à dénoter le début d'un branchement
+     */
+    public static final Set<String> identifiantsStructuresDeControle = new HashSet<>(
+            Arrays.asList("if", "while", "for", "switch"));
+
+    public static final Set<String> identifiantsAutres = new HashSet<>(
+            Arrays.asList("_", "assert", "break", "case", "catch", "const", "continue", "do", "else", "false",
+                    "finally", "goto", "import", "instanceof", "module", "new", "null", "package", "return",
+                    "strictfp", "super", "this", "throw", "transient", "true", "var", "volatile", "yield"));
+
+    private static Set<String> identifiantsJava;
+
+    public static boolean estMotCleJava(String identifiant) {
+        if (identifiantsJava == null) {
+            identifiantsJava = new HashSet<>(identifiantsAutres);
+            identifiantsJava.addAll(identifiantsModificateursClasses);
+            identifiantsJava.addAll(identifiantsDeclarationClasses);
+            identifiantsJava.addAll(identifiantsImplementationClasses);
+            identifiantsJava.addAll(identifiantsModificateursMethodes);
+            identifiantsJava.addAll(identifiantsTypesNatifs);
+            identifiantsJava.addAll(identifiantsStructuresDeControle);
+        }
+
+        return identifiantsJava.contains(identifiant);
+    }
+
+    public static boolean identifiantValide(String terme) {
+        terme = terme.strip();
+        if (!Character.isJavaIdentifierStart(terme.charAt(0))) return false;
+        for (int i = 1; i < terme.length(); i++) {
+            char chr = terme.charAt(i);
+            if (!Character.isJavaIdentifierPart(chr)) return false;
+        }
+        return true;
+    }
 
     /**
      * Obtenir l'extension d'un fichier, en minuscules, à partir de son chemin.
