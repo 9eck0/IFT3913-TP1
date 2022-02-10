@@ -194,13 +194,17 @@ public class AnalyseurJava {
                 }
                 else if (Arrays.asList('{', '(', ')', '<', '>').contains(nextChar)) {
                     // Identification classes / méthodes
-                    etatAutomateClasses = etatAutomateClasses.prochainEtat(String.valueOf(nextChar));
-                    etatAutomateMethodes = etatAutomateMethodes.prochainEtat(String.valueOf(nextChar));
+                    String nextCharStr = String.valueOf(nextChar);
+
+                    etatAutomateClasses = etatAutomateClasses.prochainEtat(nextCharStr);
+                    etatAutomateMethodes = etatAutomateMethodes.prochainEtat(nextCharStr);
                     if (etatAutomateClasses.valide()) {
-                        System.out.println("Classe valide trouvée. Ligne: " + ligneActuelle);
+                        // Classe valide trouvée
+                        System.out.println("Classe valide trouvée @ " + ligneActuelle);
                     } else if (etatAutomateMethodes.valide()) {
+                        System.out.println("Méthode valide trouvée @ " + ligneActuelle);
+                        // Méthode valide trouvée
                         noeud++;
-                        System.out.println("Méthode valide trouvée. Ligne: " + ligneActuelle);
                     }
                 }
             }

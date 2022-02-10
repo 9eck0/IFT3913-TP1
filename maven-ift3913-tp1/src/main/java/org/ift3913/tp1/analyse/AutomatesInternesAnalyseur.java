@@ -19,9 +19,20 @@ enum AutomateClasses implements AutomateEtatMots {
         }
 
         public AutomateClasses prochainEtat(String prochainMot) {
-            if (prochainMot.equals("record")) return NomRecord;
-            else if (Utils.identifiantsDeclarationClasses.contains(prochainMot)) return NomClasse;
+            if (prochainMot.equals("record")) return DeclarationRecord;
+            else if (Utils.identifiantsDeclarationClasses.contains(prochainMot)) return DeclarationClasse;
             else return Initial;
+        }
+    },
+
+    DeclarationClasse {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateClasses prochainEtat(String prochainMot) {
+            if (Utils.estMotCleJava(prochainMot) || prochainMot.equals("{")) return Initial;
+            else return NomClasse;
         }
     },
 
@@ -37,35 +48,46 @@ enum AutomateClasses implements AutomateEtatMots {
         }
     },
 
-    NomRecord {
-        public boolean valide() {
-            return false;
-        }
-
-        public AutomateClasses prochainEtat(String prochainMot) {
-            if (prochainMot.equals("(")) return DeclarationRecord;
-            else return Initial;
-        }
-    },
-
     DeclarationRecord {
         public boolean valide() {
             return false;
         }
 
         public AutomateClasses prochainEtat(String prochainMot) {
-            if (prochainMot.equals(")")) return FinDeclarationRecord;
-            else return DeclarationRecord;
+            if (Utils.estMotCleJava(prochainMot) || prochainMot.equals("{")) return Initial;
+            else return NomRecord;
         }
     },
 
-    FinDeclarationRecord {
+    NomRecord {
         public boolean valide() {
             return false;
         }
 
         public AutomateClasses prochainEtat(String prochainMot) {
-            if (prochainMot.equals("{")) return DeclarationRecord;
+            if (prochainMot.equals("(")) return ArgumentsRecord;
+            else return Initial;
+        }
+    },
+
+    ArgumentsRecord {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateClasses prochainEtat(String prochainMot) {
+            if (prochainMot.equals(")")) return FinArgumentsRecord;
+            else return ArgumentsRecord;
+        }
+    },
+
+    FinArgumentsRecord {
+        public boolean valide() {
+            return false;
+        }
+
+        public AutomateClasses prochainEtat(String prochainMot) {
+            if (prochainMot.equals("{")) return DebutClasse;
             else return Initial;
         }
     },
