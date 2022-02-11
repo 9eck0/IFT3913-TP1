@@ -2,8 +2,24 @@ package org.ift3913.tp1.analyse;
 
 import org.ift3913.tp1.Utils;
 
+/**
+ * <b>Interface automate à l'usage interne à la classe AnalyseurJava. Ne pas référencier.</b>
+ * <br>
+ * Définit un automate style Moore opérant sur les mots (au lieu des caractères).
+ *
+ * @author Pierre Janier Dubry et Rui Jie Liu
+ */
 interface AutomateEtatMots {
+    /**
+     * @return si l'état actuel représente un état valide du système en cours d'analyse
+     */
     boolean valide();
+
+    /**
+     * Passer à l'état prochain de l'automate.
+     * @param prochainMot le prochain mot de la suite du système
+     * @return le prochain état, dépendamment du mot fourni
+     */
     AutomateEtatMots prochainEtat(String prochainMot);
 }
 
@@ -11,6 +27,8 @@ interface AutomateEtatMots {
  * <b>Automate à l'usage interne à la classe AnalyseurJava. Ne pas référencier.</b>
  * <br>
  * Sert à analyser la signature d'une classe Java.
+ *
+ * @author Pierre Janier Dubry et Rui Jie Liu
  */
 enum AutomateClasses implements AutomateEtatMots {
     Initial {

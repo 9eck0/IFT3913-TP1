@@ -53,6 +53,8 @@ public class TP1 {
             String cheminFichierCsvPaquets = dossierActuel + File.separator + NOM_CSVPAQUETS;
             creerCsvClasses(resultats, new File(cheminFichierCsvClasses));
             creerCsvPaquets(resultats, new File(cheminFichierCsvPaquets));
+
+            imprimerTendanceCentrale(resultats);
         } else {
             System.out.println("Analyser un fichier Java (" + cheminBase + ")");
 
@@ -68,10 +70,9 @@ public class TP1 {
 
             String cheminFichierCsv = dossierActuel + File.separator + NOM_CSVCLASSES;
             creerCsvClasses(resultat, Path.of(cheminFichierCsv));
+
+            imprimerResultatFichier(resultat);
         }
-
-        System.out.println("fin");
-
     }
 
     //endregion MAIN
@@ -199,7 +200,7 @@ public class TP1 {
      * Prend les résultats d'une analyse de paquets et extrait les informations pertinentes
      * aux statistiques de classes dans un fichier CSV de chemin spécifié.
      *
-     * @param resultats  le résultat d'une analyse d'un paquet
+     * @param resultats le résultat d'une analyse d'un paquet
      * @param fichierCsv le chemin complet, incluant le nom du fichier CSV, à générer
      */
     static void creerCsvClasses(Collection<ResultatAnalysePaquet> resultats, File fichierCsv) {
@@ -224,6 +225,13 @@ public class TP1 {
         }
     }
 
+    /**
+     * Prend les résultats d'une analyse de paquets et extrait les informations pertinentes
+     * aux statistiques de paquets dans un fichier CSV de chemin spécifié.
+     *
+     * @param resultats le résultat d'une analyse d'un paquet
+     * @param fichierCsv le chemin complet, incluant le nom du fichier CSV, à générer
+     */
     static void creerCsvPaquets(Collection<ResultatAnalysePaquet> resultats, File fichierCsv) {
         try {
             BufferedWriter csvWriter = new BufferedWriter(new FileWriter(fichierCsv));
@@ -234,14 +242,71 @@ public class TP1 {
             // Écriture des lignes de statistiques de classes
             for (ResultatAnalysePaquet paquet : resultats) {
                 csvWriter.newLine();
-                csvWriter.write("%s,%s,%s,%s,%s,%s,%s".formatted(paquet.chemin(), paquet.nomPaquet(),
-                        paquet.ligneCodesPaquet(), paquet.lignesCommentairesPaquet(),
-                        paquet.densiteCommentaires(), paquet.complexiteCyclomatiquePaquet(), paquet.paquetBC()));
+                csvWriter.write(paquet.toString());
             }
 
             csvWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Cette méthode est appelé uniquement lorsqu'un seul fichier analysé est passé en entré du programme
+     *
+     * @param resultat l'unique fichier analysé en résultat
+     */
+    static void imprimerResultatFichier(ResultatAnalyseFichier resultat) {
+        System.out.println("Analyse terminée, voici le résultat obtenu:");
+        System.out.println("\tLignes de code:         \t" + resultat.lignesDeCode());
+        System.out.println("\tLignes de commentaires: \t" + resultat.lignesCommentaires());
+        System.out.println("\tDensité de commentaires:\t" + resultat.densiteCommentaires());
+        System.out.println("\tComplexité cyclomatique:\t" + resultat.complexiteCyclomatique());
+        System.out.println("\tTendance globale de niveau de commentaires:\t" + resultat.classeBC());
+    }
+
+    static void imprimerTendanceCentrale(Collection<ResultatAnalysePaquet> resultats) {
+
+        // compteurs
+        int paquets_LOC = 0;
+        int paquets_CLOC = 0;
+        int WCP = 0;
+
+        ArrayList<ResultatAnalyseFichier> classesTrieesBC = new ArrayList<>();
+        ArrayList<ResultatAnalysePaquet> paquetsTriesBC = new ArrayList<>();
+
+        for (ResultatAnalysePaquet resultatPaquet : resultats) {
+            paquets_LOC += resultatPaquet.ligneCodesPaquet();
+            paquets_CLOC += resultatPaquet.lignesCommentairesPaquet();
+            WCP += resultatPaquet.complexiteCyclomatiquePaquet();
+
+            // identification des pire paquets
+            paquetsTriesBC.add(resultatPaquet);
+            classesTrieesBC.addAll(resultatPaquet.resultatsFichiers());
+        }
+
+        double paquets_DC = (double) paquets_CLOC / paquets_LOC;
+        double paquets_BC = paquets_DC / WCP;
+
+        // sortie finale de analyse totale du projet pour aider à mieux interpréter les csv
+        System.out.println("Analyse terminée, voici l'aperçu des résultats pour tous les paquets:");
+        System.out.println("\tLignes de code:         \t" + paquets_LOC);
+        System.out.println("\tLignes de commentaires: \t" + paquets_CLOC);
+        System.out.println("\tDensité de commentaires:\t" + paquets_DC);
+        System.out.println("\tComplexité cyclomatique:\t" + WCP);
+        System.out.println("\tTendance globale de niveau de commentaires:\t" + paquets_BC);
+
+        // Impression des trois pires classes et paquets en terme de degré de commentaires
+        classesTrieesBC.sort(ResultatAnalyseFichier::compareTo);
+        System.out.println("\nLes trois pires classes en terme de niveau de commentaire: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(classesTrieesBC.get(i));
+        }
+
+        paquetsTriesBC.sort(ResultatAnalysePaquet::compareTo);
+        System.out.println("\nLes trois pires paquets en terme de niveau de commentaire: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(paquetsTriesBC.get(i));
         }
     }
 

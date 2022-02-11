@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class AnalyseurJava {
 
     /**
+     * <b>[WIP, non-implémenté] détection des classes imbriquées</b>
+     * <br>
      * Définit le type de l'imbrication l'analyseur est actuellement à l'intérieur de.
      */
     enum TypeImbrication { Classe, Methode, StructureControle, Autre }
@@ -32,7 +34,6 @@ public class AnalyseurJava {
      */
     private final File fichier;
 
-    // TODO: utiliser ce BufferedReader pour lire le fichier à analyser
     private BufferedReader fileStream;
 
     private AutomateEtat etatAutomateCommentaires;
@@ -165,7 +166,7 @@ public class AnalyseurJava {
                donc doivent être traités avant que les automates Moore passent au prochain caractère.*/
             String identifiant = automateIdentifiant.prochainCaractere(nextChar);
 
-            // Tester les structures
+            // Tester les identifiants
             if (identifiant != null
                     && !etatAutomateCommentaires.valide()
                     && !etatAutomateStrings.valide()
@@ -204,10 +205,13 @@ public class AnalyseurJava {
                     etatAutomateMethodes = etatAutomateMethodes.prochainEtat(nextCharStr);
                     if (etatAutomateClasses.valide()) {
                         // Classe valide trouvée
-                        System.out.println("Classe valide trouvée @ " + ligneActuelle);
+                        // Cette section sera utile lorsque la capabilité de traiter les classes imbriquées sera implémentée
+
+                        //System.out.println("Classe valide trouvée @ " + ligneActuelle);
                     } else if (etatAutomateMethodes.valide()) {
-                        System.out.println("Méthode valide trouvée @ " + ligneActuelle);
                         // Méthode valide trouvée
+
+                        //System.out.println("Méthode valide trouvée @ " + ligneActuelle);
                         noeud++;
                     }
                 }
