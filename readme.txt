@@ -46,10 +46,12 @@ juste les résultats?)
 
 ================================ Compilation ================================
 
-Compilation à partir de Maven.
+Compilation en JAR à partir de Maven.
 1) importer le projet Maven dans un IDE désiré
 2) à la ligne de commande du IDE, entrer: mvn package
-Le fichier se retrouvera dans le dossier .../maven-ift3913-tp1/target/
+Le fichier JAR se retrouvera dans le dossier .../maven-ift3913-tp1/target/
+
+Le point d'entrée du programme se trouve dans la classe TP1.main()
 
 ================================ Usage ================================
 
