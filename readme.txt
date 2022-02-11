@@ -61,7 +61,8 @@ classes.csv et paquets.csv
 
 ================================ Résultats ================================
 
-Voici une synthèse des résultats obtenus en mesurant les codes de jfreechart et de libgdx.
+Voici une synthèse des résultats obtenus en mesurant les codes de jfreechart (version 2022-02-09)
+et de libgdx (version 2022-02-10).
 
 -------------------------------------------------------
 Analyser un projet à partir de: "D:\Tests\jfreechart\src"
