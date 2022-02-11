@@ -39,6 +39,9 @@ public class Utils {
     public static final Set<String> identifiantsModificateursMethodes = new HashSet<>(
             Arrays.asList("default", "final", "native", "private", "protected", "public", "static", "synchronized"));
 
+    /**
+     * Identifiants des types du langage Java
+     */
     public static final Set<String> identifiantsTypesNatifs = new HashSet<>(
             Arrays.asList("boolean", "byte", "char", "double", "float", "int", "long", "short", "short", "void"));
 
@@ -55,6 +58,12 @@ public class Utils {
 
     private static Set<String> identifiantsJava;
 
+    /**
+     * Valide si le mot passé en argument
+     *
+     * @param identifiant le mot à vérifier
+     * @return retourne si le mot est en effet un mot réservé de Java
+     */
     public static boolean estMotCleJava(String identifiant) {
         if (identifiantsJava == null) {
             identifiantsJava = new HashSet<>(identifiantsAutres);
@@ -69,6 +78,13 @@ public class Utils {
         return identifiantsJava.contains(identifiant);
     }
 
+    /**
+     * Vérifie si le terme est un identifiant valide, c'est à dire si le mot passé
+     * en paramètre est un identifiant java ou non
+     *
+     * @param terme le mot à analyser
+     * @return si il s'agit d'un identifiant java ou non
+     */
     public static boolean identifiantValide(String terme) {
         terme = terme.strip();
         if (!Character.isJavaIdentifierStart(terme.charAt(0))) return false;

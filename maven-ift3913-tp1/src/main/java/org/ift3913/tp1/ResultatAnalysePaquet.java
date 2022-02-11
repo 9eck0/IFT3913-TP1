@@ -16,7 +16,7 @@ public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultats
 
     /**
      * Obtenir la statistique de lignes de code totales à travers tous les fichiers du paquet.
-     *
+     * <br>
      * @return le nombre de lignes de code en total
      */
     public int ligneCodesPaquet() {
@@ -25,7 +25,7 @@ public record ResultatAnalysePaquet(Collection<ResultatAnalyseFichier> resultats
 
     /**
      * Obtenir la statistique de lignes de commentaires totales à travers tous les fichiers du paquet.
-     *
+     * <br>
      * @return le nombre de lignes de code en total
      */
     public int lignesCommentairesPaquet() {

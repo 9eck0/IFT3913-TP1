@@ -80,6 +80,10 @@ public class AnalyseurJava {
 
     //region ================================ MÉTHODES D'ANALYSE ================================
 
+    /**
+     * Cette méthode permet de remettre à zéro les états des automates lorsqu'on recommence une
+     * nouvelle ligne alors on réinitialise tous les automates concernés par l'analyse
+     */
     private void initialiser() {
         this.etatAutomateCommentaires = AutomateCommentaires.Initial;
         this.etatAutomateStrings = AutomateStrings.Initial;
