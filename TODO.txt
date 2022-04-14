@@ -1,3 +1,0 @@
-- builder le javadoc
-- compiler et rendre le jar executable
-- rouler une nouvelle fois le code sur ce projet et créer une pull request suggérant de rajouter des commentaires

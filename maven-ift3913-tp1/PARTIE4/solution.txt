@@ -1,0 +1,55 @@
+IFT3913 - Qualité du logiciel et métriques
+TP1
+
+Auteurs :
+
+- Rui Jie Liu (20174496)
+- Pierre Janier Dubry (20143843)
+
+Date : 2022/02/11
+
+================================ ANALYSE  JFREECHART ================================
+
+En exécutant notre outil d'analyse sur le code du  repositoire jfreechart,
+nous avions pu identifier les classes ayant les pires degrés de commentaires,
+notamment celles qui s'occupent du fonctionnement interne du logiciel
+(e.g. modules de traçage de graphes, utilités).
+
+Voici les trois pires classes en terme de la mesure classe_BC:
+org.jfree.chart.plot.XYPlot avec classe_BC = 7.571342051381225E-4
+org.jfree.chart.plot.CategoryPlot avec classe_BC = 8.481900588909211E-4
+org.jfree.data.general.DatasetUtils avec classe_BC = 0.0012291558011361234
+
+En analysant le code de ces trois classes, on peut constater immédiatement
+leurs tailles gigantesques: ~5000 lignes pour XYPlot et CategoryPlot, et ~2500
+pour DatasetUtils. Cela suggère une conception initiale avec peu ou pas
+de redesign et restructurations pour améliorer la maintenabilité du code.
+
+Voici certaines remarques sur le degré dont ces classes sont commentées:
+
+- Presque uniquement des Javadocs courts pour expliquer sommairement
+la fonctionnalité de la méthode. La plupart de ces Javadocs ne détaillent
+aucunement toutes les possibilités de comportement de la méthode commentée
+(tous les types de returns, les raisons des exceptions, etc.)
+
+- Il existe très peu de commentaires pour aider à la compréhension et la
+maintenance de ces fichiers. La plus grande partie de ce qui existe est
+simplement une petite phrase expliquant un bloc de code logiquement complexe
+(e.g. usage d'une valeur magique, fonction d'une structure de contrôle).
+
+================================ SOLUTIONS ================================
+
+Voici des suggestions aux problèmes mentionnés ci-haut:
+
+- Selon plusieurs études sur la cognition humaine, le nombre de concepts moyen
+qu'un être humain peut saisir et manipuler en même temps est autour de sept.
+Ainsi, pour les classes trop grosses, il vaut mieux les restructurer pour ne
+conserver qu'un nombre limité de méthodes, préférablement autour de 7.
+
+- Les Javadocs seront plus utiles si tous les comportements attendus et
+exceptions sont mentionnés en détail, avec une structure unifiée pour les
+explications. Un bon exemple est la documentation de Win32API de Microsoft,
+disponible sur le site MSDN.
+
+- Plus de focus sur la maintenabilité des codes, surtout pour les classes et
+méthodes de bas niveaux, telle la classe DatasetUtils.
